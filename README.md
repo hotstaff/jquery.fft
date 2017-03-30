@@ -6,13 +6,62 @@ Simple and pure javascript FFT module.
 	var imaginary = new Array(real.length); 
 	imaginary.fill(0);   
 	
-	//fft
+	//FFT
 	var fft = new FFT();
 	fft.calc(1, real, imaginary);
 
 	// real = [4,0,0,0]
 	// imaginary = [0,0,0,0]
-	// NOTE: This function rewrites orignal array.
+	// NOTE: This "calc()" method rewrites orignal array.
+
+	//iFFT
+	fft.calc(-1, real, imaginary);
+	// real = [1,1,1,1]
+	// imaginary = [0,0,0,0]
+
+# Amplitude, Power, Phase
+	var real = [1,0,1,0];  //this is input array
+	var imaginary = new Array(real.length); 
+	imaginary.fill(0); 
+	
+	// FFT
+	var fft = new FFT();
+	fft.calc(1, real, imaginary);
+	// real = [2,0,2,0]
+	// imaginary = [0,0,0,0]
+
+	// Amplitude
+	var amplitude = fft.amplitude(real, imaginary);
+	// amplitude = [2,0]
+
+	// Power
+	var power = fft.power(real, imaginary);
+	// power = [4,0]
+
+	// Phase
+	var phase = fft.phase(real, imaginary);
+	// phase = [0,0]
+
+	// NOTE: "amplitude()", "power()", "phase()" method return new array;
+
+
+# frequencies, periods
+	
+	// frequencies
+	// usage: frequencies( samplingrate, real, imaginary)
+
+	var frequencies = fft.frequencies( 1, real, imaginary); //samplingrate = 1
+	// frequencies = [0, 0.25] 
+	// NOTE: frequencies array length is N/2
+
+
+	// periods 
+	// periods function returns 1/frequency array.
+
+	// usage: periods( samplingrate, real, imaginary)
+	var periods = fft.periods( 1, real, imaginary); //samplingrate = 1
+	// periods = [null, 4]
+	// NOTE: First value is always null; 
 
 # License 
 

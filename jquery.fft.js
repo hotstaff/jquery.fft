@@ -1,6 +1,6 @@
 /*!
  * jQuery FFT Plugin v1.0.0
- * https:// 
+ * http://
  * This code is javascript converted version of following VBA source:
  * Tetsuya Kawamura 川村 哲也, エンジニアのためのExcelナビシリーズ 数値計算入門, page 194, (2012)
  * ISBN 987-4-9011092-81-4 
@@ -8,25 +8,19 @@
  * Copyright 2017 Hideto Manjo
  * Released under the MIT license
  */
-
-//jquery-fft.js
 if (typeof(window.FFT) == 'undefined') {
 
-    // コンストラクタ定義
     var FFT = function() {
+        
+    	if (window == this) {
+    	    return new FFT();
+    	}
 
-	// コンストラクタを直接呼び出した場合にフォールバック
-	if (window == this) {
-	    return new FFT();
-	}
-
-	// プロパティ定義
-	this.init.apply(this, arguments);
-
-	return this;
+    	this.init.apply(this, arguments);
+        
+        return this;
     };
 
-    // バージョン番号
     FFT.VERSION = '1.0';
 
     FFT.prototype.init = function init(){
@@ -41,7 +35,7 @@ if (typeof(window.FFT) == 'undefined') {
     		if( !(N & (N-1)) ){ 
     			break;	
     		}
-    		N = N+1;
+    		N = N + 1;
     		F1.push(0);
     		F2.push(0);	
     	}
@@ -49,33 +43,53 @@ if (typeof(window.FFT) == 'undefined') {
     };
 
     FFT.prototype.amplitude = function amplitude(F1,F2) {
-    	N = this.dim(F1, F2);
-    	m = N / 2;
-    	amp = [];
-        for (i = 0; i< m; i++){
+    	var N = this.dim(F1, F2);
+    	var m = N / 2;
+    	var amp = [];
+        for (var i = 0; i < m; i = i + 1 ){
             amp.push(Math.sqrt(F1[i] * F1[i] + F2[i] * F2[i]) ); 
         }
         return amp;
     };
 
+    FFT.prototype.power = function power(F1,F2) {
+        var N = this.dim(F1, F2);
+        var m = N / 2;
+        var pwr = [];
+        for (var i = 0; i < m; i = i + 1 ){
+            pwr.push( F1[i] * F1[i] + F2[i] * F2[i] ); 
+        }
+        return pwr;
+    };
+
     FFT.prototype.phase = function phase(F1,F2) {
-        N = this.dim(F1, F2);
-        m = N / 2;
-        phs = [];
-        for (i = 0; i< m; i= i + 1){
+        var N = this.dim(F1, F2);
+        var m = N / 2;
+        var phs = [];
+        for (var i = 0; i < m; i = i + 1 ){
             phs.push( Math.atan2(F2[i], F1[i])); 
         }
         return phs;
     };
 
     FFT.prototype.frequencies = function frequencies( samplingrate, F1, F2 ) {
-    	N = this.dim(F1, F2);
-    	m = N / 2;
-    	freq = [];
-        for (i = 0; i< m; i = i + 1){
+    	var N = this.dim(F1, F2);
+    	var m = N / 2;
+    	var freq = [];
+        for (var i = 0; i < m ; i = i + 1 ){
             freq.push( samplingrate * (i) / N ); 
         }
         return freq;
+    };
+
+    FFT.prototype.periods = function periods( samplingrate, F1, F2 ) {
+        var N = this.dim(F1, F2);
+        var m = N / 2;
+        var prd = [];
+        for (var i = 0; i < m ; i = i + 1 ){
+            prd.push( N / (samplingrate * (i)) ); 
+        }
+        return prd;
     };
 
     // メソッドの定義
@@ -108,10 +122,10 @@ if (typeof(window.FFT) == 'undefined') {
     	DX = 1/N;
 
     	var PAI = 3.14159265358979;
-    	WN =2 * PAI / N; 
+    	WN = 2 * PAI / N; 
     	m = N; 
 
-    	for ( l = 0; l < INDEX; l = l + 1   ){  
+    	for ( l = 0; l < INDEX; l = l + 1 ){  
     		T = 0;
     		m1 = m; 
     		m = m / 2;
@@ -139,7 +153,7 @@ if (typeof(window.FFT) == 'undefined') {
 
     	j = 0;
     	for ( i = 0 ; i < N-1; i = i + 1 ){
-    		
+
     		if ( i < j ){
     			W1 = F1[j];
     			W2 = F2[j];
@@ -159,12 +173,12 @@ if (typeof(window.FFT) == 'undefined') {
     	}
 
     	if( SW < 0){
-			for ( i =0; i < N; i = i + 1){
+			for ( i =0; i < N; i = i + 1 ){
 				F1[i] =  DX * F1[i];
 				F2[i] =  DX * F2[i];
 			}
 		}
 
-    	return [F1,F2];
+    	return [F1, F2];
     };
 }
