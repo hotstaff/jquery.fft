@@ -56,7 +56,7 @@ Simple and pure javascript FFT module.
 
 
 	// periods 
-	// periods function returns 1/frequency array.
+	// "periods()" method returns 1/frequency array.
 
 	// usage: periods( samplingrate, real, imaginary)
 	var periods = fft.periods( 1, real, imaginary); //samplingrate = 1
