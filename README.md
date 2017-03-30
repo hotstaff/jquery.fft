@@ -46,7 +46,13 @@ Simple and pure javascript FFT module.
 
 
 # frequencies, periods
-	
+	var real = [1,0,1,0];  //this is input array
+	var imaginary = new Array(real.length); 
+	imaginary.fill(0); 
+
+	var fft = new FFT();
+	fft.calc(1, real, imaginary	
+
 	// frequencies
 	// usage: frequencies( samplingrate, real, imaginary)
 
