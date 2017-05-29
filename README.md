@@ -71,8 +71,8 @@ The module do not require jQuery, and can be used with node.js.
 
 	// usage: periods(real, imaginary, samplingrate)
 	// Note the order of the arguments
-	//	 v1.0.0 -> frequencies(samplingrate, real, imaginary)
-	//	 v1.0.1 -> frequencies(real, imaginary[, samplingrate])
+	//	 v1.0.0 -> periods(samplingrate, real, imaginary)
+	//	 v1.0.1 -> periods(real, imaginary[, samplingrate])
 
 	var periods = fft.periods(real, imaginary, 1); //samplingrate default is 1;
 	// periods = [null, 4]
