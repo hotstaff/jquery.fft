@@ -51,19 +51,19 @@
         out("amplitude");
         out(amplitude);
 
-        var power = fft.power(real,imaginary);
+        var power = fft.power(real, imaginary);
         out("power");
         out(power);
 
-        var phase = fft.phase(real,imaginary);
+        var phase = fft.phase(real, imaginary);
         out("phase");
         out(phase);
 
-        var frequencies = fft.frequencies(1,real,imaginary);
+        var frequencies = fft.frequencies(real, imaginary, 1);
         out("frequencies");
         out(frequencies);
 
-        var periods = fft.periods(1, real, imaginary);
+        var periods = fft.periods(real, imaginary, 1);
         out("periods");
         out(periods);
 

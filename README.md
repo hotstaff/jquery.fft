@@ -1,5 +1,6 @@
 # jquery.fft
 Simple and pure javascript FFT module.
+The module do not require jQuery, and can be used with node.js.
 
 # Simple Example
 	var real = [1,1,1,1];  //this is input array
@@ -54,9 +55,13 @@ Simple and pure javascript FFT module.
 	fft.calc(1, real, imaginary	
 
 	// frequencies
-	// usage: frequencies( samplingrate, real, imaginary)
 
-	var frequencies = fft.frequencies( 1, real, imaginary); //samplingrate = 1
+	// usage: frequencies(real, imaginary, samplingrate)
+	// Note the order of the arguments
+	//	 v1.0.0 -> frequencies(samplingrate, real, imaginary)
+	//	 v1.0.1 -> frequencies(real, imaginary[, samplingrate])
+
+	var frequencies = fft.frequencies(real, imaginary, 1); //samplingrate default is 1;
 	// frequencies = [0, 0.25] 
 	// NOTE: frequencies array length is N/2
 
@@ -64,8 +69,12 @@ Simple and pure javascript FFT module.
 	// periods 
 	// "periods()" method returns 1/frequency array.
 
-	// usage: periods( samplingrate, real, imaginary)
-	var periods = fft.periods( 1, real, imaginary); //samplingrate = 1
+	// usage: periods(real, imaginary, samplingrate)
+	// Note the order of the arguments
+	//	 v1.0.0 -> frequencies(samplingrate, real, imaginary)
+	//	 v1.0.1 -> frequencies(real, imaginary[, samplingrate])
+
+	var periods = fft.periods(real, imaginary, 1); //samplingrate default is 1;
 	// periods = [null, 4]
 	// NOTE: First value is always null; 
 
