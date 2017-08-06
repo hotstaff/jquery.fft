@@ -38,81 +38,64 @@
     	return N;
     };
 
-    FFT.prototype.amplitude = function amplitude(F1, F2) {
-    	var N = this.dim(F1, F2);
-    	var m = N / 2;
-    	var amp = [];
+    FFT.prototype._forloop = function _forloop(N, callback){
+        var m = N / 2;
+        var ans = [];
         for (var i = 0; i < m; i = i + 1){
-            amp.push( Math.sqrt(F1[i] * F1[i] + F2[i] * F2[i]) ); 
+            ans.push( callback.call(null, i) );
+        } 
+        return ans;
+    };
+
+    FFT.prototype._convertTo = function _convertTo(unit, F1, F2, samplingrate){
+        var sps = samplingrate || this.settings.samplingrate;
+        var f;
+        switch(unit){
+            case 'amplitude': 
+                f = function amp(i){return Math.sqrt(F1[i] * F1[i] + F2[i] * F2[i]);};
+                break;
+            case 'power':
+                f = function pow(i){return F1[i] * F1[i] + F2[i] * F2[i];};
+                break;
+            case 'phase':
+                f = function phs(i){return Math.atan2(F2[i], F1[i]);};
+                break;
+            case 'frequencies':
+                f = function freq(i){return sps * (i) / N;};
+                break;
+            case 'periods':
+                f = function prd(i){return N / (sps * (i));};
         }
-        return amp;
+        return this._forloop(this.dim(F1, F2), function(i){
+                return f.call(null, i);
+            });
+    };
+
+    FFT.prototype.amplitude = function amplitude(F1, F2) {
+        return this._convertTo('amplitude', F1, F2, 1);
     };
 
     FFT.prototype.power = function power(F1, F2) {
-        var N = this.dim(F1, F2);
-        var m = N / 2;
-        var pwr = [];
-        for (var i = 0; i < m; i = i + 1){
-            pwr.push( F1[i] * F1[i] + F2[i] * F2[i] ); 
-        }
-        return pwr;
+        return this._convertTo('power', F1, F2, 1);
     };
 
     FFT.prototype.phase = function phase(F1, F2) {
-        var N = this.dim(F1, F2);
-        var m = N / 2;
-        var phs = [];
-        for (var i = 0; i < m; i = i + 1){
-            phs.push( Math.atan2(F2[i], F1[i]) ); 
-        }
-        return phs;
+        return this._convertTo('phase', F1, F2, 1);
     };
 
     FFT.prototype.frequencies = function frequencies(F1, F2, samplingrate) {
-        var sps = samplingrate || this.settings.samplingrate;
-    	var N = this.dim(F1, F2);
-    	var m = N / 2;
-    	var freq = [];
-        for (var i = 0; i < m ; i = i + 1){
-            freq.push( sps * (i) / N ); 
-        }
-        return freq;
+        return this._convertTo('frequencies', F1, F2, samplingrate);
     };
 
     FFT.prototype.periods = function periods(F1, F2, samplingrate) {
-        var sps = samplingrate || this.settings.samplingrate;
-        var N = this.dim(F1, F2);
-        var m = N / 2;
-        var prd = [];
-        for (var i = 0; i < m ; i = i + 1){
-            prd.push( N / (sps * (i)) ); 
-        }
-        return prd;
+        return this._convertTo('periods', F1, F2, samplingrate);
     };
 
     FFT.prototype.calc = function calc(SW, F1, F2) {
-        
-    	var WN;
-    	var T;
-    	var A1;
-    	var A2;
-    	var B1;
-    	var B2;
-    	var W1;
-    	var W2;
-    	var C;
-    	var S;
 
+    	var WN, T, A1, A2, B1, B2, W1, W2, C, S;
     	//integers
-    	var m;
-    	var i;
-    	var j;
-    	var k;
-    	var l;
-    	var jl;
-    	var jm;
-    	var m1;
-    	var kl;
+    	var m, i, j, k, l, jl, jm, m1, kl;
 
     	N = this.dim(F1, F2);
     	INDEX = Math.log2(N);
@@ -132,6 +115,7 @@
     			C = Math.cos(T);
     			S = -SW * Math.sin(T);
     			T = T + WN;
+                
     			for (j = m1 ; j < N + 1 ; j = j + m1){
     				jl = j + kl;
     				jm = jl + m;
@@ -178,7 +162,6 @@
 
     	return [F1, F2];
     };
-
 
     //export
     return FFT;
