@@ -46,43 +46,32 @@
                 } 
                 return ans;
             },
-        _convertTo: function _convertTo(unit, F1, F2, samplingrate){
-                var sps = samplingrate || this.settings.samplingrate;
-                var f;
-                switch(unit){
-                    case 'amplitude': 
-                        f = function amp(i){return Math.sqrt(F1[i] * F1[i] + F2[i] * F2[i]);};
-                        break;
-                    case 'power':
-                        f = function pow(i){return F1[i] * F1[i] + F2[i] * F2[i];};
-                        break;
-                    case 'phase':
-                        f = function phs(i){return Math.atan2(F2[i], F1[i]);};
-                        break;
-                    case 'frequencies':
-                        f = function freq(i){return sps * (i) / N;};
-                        break;
-                    case 'periods':
-                        f = function prd(i){return N / (sps * (i));};
-                }
-                return this._forloop(this.dim(F1, F2), function(i){
-                        return f.call(null, i);
-                    });
-            },
         amplitude: function amplitude(F1, F2) {
-                return this._convertTo('amplitude', F1, F2, 1);
+                return this._forloop(this.dim(F1, F2), function(i){
+                    return Math.sqrt(F1[i] * F1[i] + F2[i] * F2[i]);
+                });
             },
         power: function power(F1, F2) {
-                return this._convertTo('power', F1, F2, 1);
+                return this._forloop(this.dim(F1, F2), function(i){
+                    return F1[i] * F1[i] + F2[i] * F2[i];
+                });
             },
         phase: function phase(F1, F2) {
-                return this._convertTo('phase', F1, F2, 1);
+                return this._forloop(this.dim(F1, F2), function(i){
+                    return Math.atan2(F2[i], F1[i]);
+                });
             },
         frequencies: function frequencies(F1, F2, samplingrate) {
-                return this._convertTo('frequencies', F1, F2, samplingrate);
+                var sps = samplingrate || this.settings.samplingrate;
+                return this._forloop(this.dim(F1, F2), function(i){
+                    return sps * (i) / N;
+                });
             },
         periods: function periods(F1, F2, samplingrate) {
-                return this._convertTo('periods', F1, F2, samplingrate);
+                var sps = samplingrate || this.settings.samplingrate;
+                return this._forloop(this.dim(F1, F2), function(i){
+                    return  N / (sps * (i)) ;
+                });
             },
         calc:function calc(SW, F1, F2) {
             	var WN, T, A1, A2, B1, B2, W1, W2, C, S;
