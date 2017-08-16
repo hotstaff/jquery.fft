@@ -24,76 +24,76 @@ var fft = new FFT();
 ```
 
 # Simple Example
-	```javascript
-	var real = [1,1,1,1];  //this is input array
-	var imaginary = new Array(real.length); 
-	imaginary.fill(0);   
-	
-	//FFT
-	var fft = new FFT(); 
-	fft.calc(1, real, imaginary);
+```javascript
+var real = [1,1,1,1];  //this is input array
+var imaginary = new Array(real.length); 
+imaginary.fill(0);   
 
-	// real = [4,0,0,0]
-	// imaginary = [0,0,0,0]
-	// NOTE: This "calc()" method rewrites orignal array.
+//FFT
+var fft = new FFT(); 
+fft.calc(1, real, imaginary);
 
-	//iFFT
-	fft.calc(-1, real, imaginary);
-	// real = [1,1,1,1]
-	// imaginary = [0,0,0,0]
-	```
+// real = [4,0,0,0]
+// imaginary = [0,0,0,0]
+// NOTE: This "calc()" method rewrites orignal array.
+
+//iFFT
+fft.calc(-1, real, imaginary);
+// real = [1,1,1,1]
+// imaginary = [0,0,0,0]
+```
 
 # Amplitude, Power, Phase
-	```javascript
-	var real = [1,0,1,0];  //this is input array
-	var imaginary = new Array(real.length); 
-	imaginary.fill(0); 
-	
-	// FFT
-	var fft = new FFT();
-	fft.calc(1, real, imaginary);
-	// real = [2,0,2,0]
-	// imaginary = [0,0,0,0]
+```javascript
+var real = [1,0,1,0];  //this is input array
+var imaginary = new Array(real.length); 
+imaginary.fill(0); 
 
-	// Amplitude
-	var amplitude = fft.amplitude(real, imaginary);
-	// amplitude = [2,0]
+// FFT
+var fft = new FFT();
+fft.calc(1, real, imaginary);
+// real = [2,0,2,0]
+// imaginary = [0,0,0,0]
 
-	// Power
-	var power = fft.power(real, imaginary);
-	// power = [4,0]
+// Amplitude
+var amplitude = fft.amplitude(real, imaginary);
+// amplitude = [2,0]
 
-	// Phase
-	var phase = fft.phase(real, imaginary);
-	// phase = [0,0]
+// Power
+var power = fft.power(real, imaginary);
+// power = [4,0]
 
-	// NOTE: "amplitude()", "power()", "phase()" method return new array;
-	```
+// Phase
+var phase = fft.phase(real, imaginary);
+// phase = [0,0]
+
+// NOTE: "amplitude()", "power()", "phase()" method return new array;
+```
 
 # frequencies, periods
-	```javascript
-	var real = [1,0,1,0];  //this is input array
-	var imaginary = new Array(real.length); 
-	imaginary.fill(0); 
+```javascript
+var real = [1,0,1,0];  //this is input array
+var imaginary = new Array(real.length); 
+imaginary.fill(0); 
 
-	var fft = new FFT();
-	fft.calc(1, real, imaginary);
+var fft = new FFT();
+fft.calc(1, real, imaginary);
 
-	// frequencies
-	// usage: frequencies(real, imaginary, samplingrate)
+// frequencies
+// usage: frequencies(real, imaginary, samplingrate)
 
-	var frequencies = fft.frequencies(real, imaginary, 1); //samplingrate default is 1;
-	// frequencies = [0, 0.25] 
-	// NOTE: frequencies array length is N/2
+var frequencies = fft.frequencies(real, imaginary, 1); //samplingrate default is 1;
+// frequencies = [0, 0.25] 
+// NOTE: frequencies array length is N/2
 
-	// periods 
-	// "periods()" method returns 1/frequency array.
-	// usage: periods(real, imaginary, samplingrate)
+// periods 
+// "periods()" method returns 1/frequency array.
+// usage: periods(real, imaginary, samplingrate)
 
-	var periods = fft.periods(real, imaginary, 1); //samplingrate default is 1;
-	// periods = [null, 4]
-	// NOTE: First value is always null; 
-	```
+var periods = fft.periods(real, imaginary, 1); //samplingrate default is 1;
+// periods = [null, 4]
+// NOTE: First value is always null; 
+```
 
 # License 
 
