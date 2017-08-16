@@ -2,13 +2,34 @@
 Simple and pure javascript FFT module.
 The module do not require jQuery, and can be used with node.js.
 
+# Instllation
+
+### Direct download
+Download the script [here](https://github.com/hotstaff/jquery.fft/blob/master/jquery.fft.js) and include it.
+```html
+<script src="/path/to/jquery.fft.js"></script>
+```
+```javascript
+var fft = new FFT();
+```
+
+### Package Manager
+The module supports [npm](https://www.npmjs.com/package/jquery.fft) under the name `jquery.fft`and require it.
+``` sh
+npm install jquery.fft
+```
+```javascript
+var FFT = require('jquery.fft');
+var fft = new FFT()
+```
+
 # Simple Example
 	var real = [1,1,1,1];  //this is input array
 	var imaginary = new Array(real.length); 
 	imaginary.fill(0);   
 	
 	//FFT
-	var fft = new FFT();
+	var fft = new FFT(); 
 	fft.calc(1, real, imaginary);
 
 	// real = [4,0,0,0]
