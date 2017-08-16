@@ -14,13 +14,13 @@ var fft = new FFT();
 ```
 
 ### Package Manager
-The module supports [npm](https://www.npmjs.com/package/jquery.fft) under the name `jquery.fft`and require it.
+The module supports [npm](https://www.npmjs.com/package/jquery.fft) under the name `jquery.fft`.
 ``` sh
 npm install jquery.fft
 ```
 ```javascript
 var FFT = require('jquery.fft');
-var fft = new FFT()
+var fft = new FFT();
 ```
 
 # Simple Example
