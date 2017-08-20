@@ -4,7 +4,7 @@
   "description": "Simple and pure javascript FFT module.",
   "main": "jquery.fft.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\""
+    "test": "node -c jquery.fft.js"
   },
   "repository": {
     "type": "git",
