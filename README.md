@@ -1,4 +1,4 @@
-# jquery.fft
+# jquery.fft [![Build Status](https://travis-ci.org/hotstaff/jquery.fft.svg?branch=master)](https://travis-ci.org/hotstaff/jquery.fft)
 Simple and pure javascript FFT module.
 The module do not require jQuery, and can be used with node.js.
 
