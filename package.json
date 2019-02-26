@@ -1,6 +1,6 @@
 {
   "name": "jquery.fft",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple and pure javascript FFT module.",
   "main": "jquery.fft.js",
   "scripts": {

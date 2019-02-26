@@ -1,5 +1,5 @@
 /*!
- * jQuery FFT Plugin v1.0.1
+ * jQuery FFT Plugin v1.0.3
  * This code is javascript converted version of following VBA source:
  * Tetsuya Kawamura 川村 哲也,
  * エンジニアのためのExcelナビシリーズ 数値計算入門, page 194, (2012)
