@@ -83,13 +83,17 @@
         periods: function periods(F1, F2, samplingrate) {
             var sps = samplingrate || this.settings.samplingrate;
             var N = this.dim(F1, F2);
-            return this.loop(this.dim(F1, F2), function (i) {
+            return this.loop(N, function (i) {
                 return N / (sps * (i));
             });
         },
         calc: function calc(SW, F1, F2) {
-            var WN;
-            var T;
+            var N = this.dim(F1, F2);
+            var WN = 2 * Math.PI / N;
+            var INDEX = Math.log2(N);
+            var DX = 1 / N;
+            var m = N;
+
             var A1;
             var A2;
             var B1;
@@ -98,8 +102,8 @@
             var W2;
             var C;
             var S;
+            var T;
 
-            var m;
             var i;
             var j;
             var k;
@@ -108,13 +112,6 @@
             var jm;
             var m1;
             var kl;
-
-            var N = this.dim(F1, F2);
-            var INDEX = Math.log2(N);
-            var DX = 1 / N;
-
-            WN = 2 * Math.PI / N;
-            m = N;
 
             for (l = 0; l < INDEX; l = l + 1) {
                 T = 0;
