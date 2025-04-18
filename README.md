@@ -91,8 +91,8 @@ var frequencies = fft.frequencies(real, imaginary, 1); //samplingrate default is
 // usage: periods(real, imaginary, samplingrate)
 
 var periods = fft.periods(real, imaginary, 1); //samplingrate default is 1;
-// periods = [null, 4]
-// NOTE: First value is always null; 
+// periods = [Infinity, 4]
+// NOTE: First value is always Infinity (division by zero)
 ```
 
 # License 
